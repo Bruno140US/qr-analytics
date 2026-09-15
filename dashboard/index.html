@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Analytics — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <div>
+                <h1>QR Analytics</h1>
+                <p class="subtitle">Painel de rastreamento de QR Codes</p>
+            </div>
+            <div class="header-actions">
+                <button id="new-qr-btn" class="btn-primary">
+                    <span>+</span> Novo QR Code
+                </button>
+                <button id="refresh-btn" class="btn-refresh">
+                    <span class="dot"></span> Atualizar
+                </button>
+            </div>
+        </header>
+
+        <!-- KPIs -->
+        <section class="kpis">
+            <div class="kpi-card">
+                <span class="kpi-label">Total de scans</span>
+                <span class="kpi-value" id="kpi-total">—</span>
+                <span class="kpi-sub" id="kpi-total-sub">&nbsp;</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Visitantes únicos</span>
+                <span class="kpi-value" id="kpi-unique">—</span>
+                <span class="kpi-sub" id="kpi-unique-sub">&nbsp;</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Hoje</span>
+                <span class="kpi-value" id="kpi-today">—</span>
+                <span class="kpi-sub" id="kpi-today-sub">&nbsp;</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Últimos 7 dias</span>
+                <span class="kpi-value" id="kpi-week">—</span>
+                <span class="kpi-sub" id="kpi-week-sub">&nbsp;</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Scans por dia</h2>
+            <div class="chart-container chart-large">
+                <canvas id="chart-daily"></canvas>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>Total vs. visitantes únicos</h2>
+                <p class="card-hint">
+                    "Únicos" = mesma combinação de IP + navegador contada uma vez por dia.
+                    <span class="hint-warn">Aproximação — não é identificação de pessoas.</span>
+                </p>
+            </div>
+            <div class="chart-container chart-large">
+                <canvas id="chart-unique"></canvas>
+            </div>
+        </section>
+
+        <section class="grid-2">
+            <div class="card">
+                <h2>Dispositivos</h2>
+                <div class="chart-container">
+                    <canvas id="chart-devices"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Cidades</h2>
+                <ul class="list" id="list-cities">
+                    <li class="empty">Sem dados ainda</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="grid-2">
+            <div class="card">
+                <h2>Sistemas operacionais</h2>
+                <div class="chart-container">
+                    <canvas id="chart-os"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Navegadores</h2>
+                <div class="chart-container">
+                    <canvas id="chart-browsers"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>QR Codes</h2>
+            <table class="table" id="table-qr">
+                <thead>
+                    <tr>
+                        <th>QR ID</th>
+                        <th>Nome</th>
+                        <th>Destino</th>
+                        <th class="right">Scans</th>
+                        <th class="right">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="5" class="empty">Sem dados ainda</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            <span id="last-update">—</span>
+            <span class="footer-sep">•</span>
+            <a href="privacy.html" class="footer-link">Política de Privacidade</a>
+        </footer>
+    </div>
+
+    <dialog id="qr-modal" class="modal">
+        <form id="qr-form" method="dialog">
+            <h3 id="qr-modal-title">Novo QR Code</h3>
+            <label class="field">
+                <span>Nome da campanha <small>(opcional)</small></span>
+                <input type="text" id="qr-name" maxlength="100" placeholder="Ex: Cartão de visita">
+            </label>
+            <label class="field">
+                <span>URL de destino</span>
+                <input type="url" id="qr-url" required placeholder="https://exemplo.com" autocomplete="off">
+            </label>
+            <p id="qr-form-error" class="form-error" hidden></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="qr-cancel">Cancelar</button>
+                <button type="submit" class="btn-primary" id="qr-save">Salvar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="preview-modal" class="modal">
+        <h3 id="preview-title">QR Code</h3>
+        <div class="preview-body">
+            <img id="preview-img" alt="QR Code" />
+            <p class="preview-id mono" id="preview-id"></p>
+            <p class="preview-url" id="preview-url"></p>
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="preview-close">Fechar</button>
+            <a id="preview-download" class="btn-primary" download>Baixar PNG</a>
+        </div>
+    </dialog>
+
+    <dialog id="analytics-modal" class="modal modal-wide">
+        <h3 id="analytics-title">Analytics</h3>
+        <div class="analytics-kpis">
+            <div class="analytics-kpi">
+                <span class="kpi-label">Total</span>
+                <span class="analytics-value" id="an-total">—</span>
+            </div>
+            <div class="analytics-kpi">
+                <span class="kpi-label">Únicos</span>
+                <span class="analytics-value" id="an-unique">—</span>
+            </div>
+        </div>
+        <div class="analytics-cols">
+            <div>
+                <h4>Top cidades</h4>
+                <ul class="list" id="an-cities"><li class="empty">Sem dados</li></ul>
+            </div>
+            <div>
+                <h4>Dispositivos</h4>
+                <ul class="list" id="an-devices"><li class="empty">Sem dados</li></ul>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="analytics-close">Fechar</button>
+        </div>
+    </dialog>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

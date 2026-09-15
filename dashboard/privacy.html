@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade — QR Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .privacy { max-width: 780px; margin: 0 auto; }
+        .privacy h1 { margin-bottom: 8px; }
+        .privacy h2 { margin-top: 28px; text-transform: none; letter-spacing: 0; font-size: 16px; color: var(--text); }
+        .privacy p, .privacy li { color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+        .privacy ul { padding-left: 22px; margin-bottom: 8px; }
+        .privacy a { color: var(--accent); text-decoration: none; }
+        .privacy a:hover { text-decoration: underline; }
+        .privacy .back { margin-top: 32px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container privacy">
+        <h1>Política de Privacidade</h1>
+        <p class="subtitle">Última atualização: <span id="date"></span></p>
+
+        <h2>1. O que é o QR Analytics</h2>
+        <p>
+            O QR Analytics é um sistema que gera QR Codes rastreáveis. Quando alguém escaneia um QR Code
+            gerenciado por este sistema, alguns dados técnicos são registrados para produzir estatísticas
+            agregadas de uso (como "quantas pessoas escanearam", "de qual cidade", "em qual tipo de dispositivo").
+        </p>
+
+        <h2>2. Quais dados coletamos</h2>
+        <ul>
+            <li>Data e hora do escaneamento;</li>
+            <li>Endereço IP (armazenado internamente, mas <strong>exibido mascarado</strong> no dashboard, ex: <code>191.32.108.x</code>);</li>
+            <li>Informações do navegador (<em>User-Agent</em>): navegador, versão, sistema operacional e tipo de dispositivo;</li>
+            <li>Localização aproximada (cidade/estado/país) obtida por geolocalização de IP — <strong>não</strong> usamos GPS.</li>
+        </ul>
+
+        <h2>3. O que NÃO coletamos</h2>
+        <ul>
+            <li>Nome, e-mail, telefone ou qualquer dado de identificação pessoal;</li>
+            <li>Localização precisa por GPS;</li>
+            <li>Cookies de rastreamento de terceiros;</li>
+            <li>Dados de navegação em outros sites.</li>
+        </ul>
+
+        <h2>4. Para que usamos</h2>
+        <p>
+            Os dados são usados exclusivamente para gerar estatísticas agregadas sobre o desempenho
+            dos QR Codes (total de scans, cidades, dispositivos, etc.).
+        </p>
+
+        <h2>5. Compartilhamento com terceiros</h2>
+        <p>
+            A localização aproximada é obtida via <a href="https://ip-api.com" target="_blank" rel="noopener">ip-api.com</a>.
+            Nenhum dado pessoal é vendido, alugado ou compartilhado para fins publicitários.
+        </p>
+
+        <h2>6. Retenção</h2>
+        <p>
+            Os dados de scans são mantidos por tempo limitado e removidos automaticamente após o período
+            de retenção configurado. Para exercer direitos previstos na LGPD (Lei 13.709/2018), entre em
+            contato com o responsável pelo sistema.
+        </p>
+
+        <h2>7. Seus direitos</h2>
+        <p>
+            Nos termos da LGPD, você pode solicitar a confirmação de tratamento, o acesso, a correção ou
+            a anonimização dos seus dados. Como os dados armazenados são técnicos e não permitem
+            identificação direta de uma pessoa, na prática o exercício desses direitos se dá sobre o conjunto
+            agregado.
+        </p>
+
+        <a class="back btn-secondary" href="index.html">← Voltar ao dashboard</a>
+    </div>
+
+    <script>
+        document.getElementById('date').textContent = new Date().toLocaleDateString('pt-BR');
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+qrcode[pil]
+user-agents
+requests
+slowapi
+python-dotenv

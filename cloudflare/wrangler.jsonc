@@ -1,0 +1,29 @@
+{
+	"name": "qr-analytics",
+	"main": "src/main.py",
+	"compatibility_date": "2026-09-01",
+	"compatibility_flags": [
+		"python_workers"
+	],
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS",
+		"run_worker_first": true
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "qr-analytics-db",
+			"database_id": "bf90f7bc-12bf-49e3-baa9-e8f1b696c56d"
+		},
+		{
+			"binding": "qr_analytics_db",
+			"database_name": "qr-analytics-db",
+			"database_id": "bf90f7bc-12bf-49e3-baa9-e8f1b696c56d",
+			"remote": true
+		}
+	],
+	"vars": {
+		"ADMIN_USER": "admin"
+	}
+}

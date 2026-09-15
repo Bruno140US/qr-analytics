@@ -1,0 +1,27 @@
+# Ambiente
+venv/
+.env
+
+# Banco (não versionar)
+data/*.db
+data/*.db-journal
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# QR gerados localmente
+generated/
+
+# Cloudflare
+cloudflare/db_dump.sql
+cloudflare/.wrangler/
+cloudflare/node_modules/
+cloudflare/.dev.vars
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
