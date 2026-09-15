@@ -45,6 +45,29 @@ O projeto foi construído do zero, sem frameworks de dashboard ou templates pron
 
 ## ⚙️ Como rodar localmente
 
+## ⚡ Início rápido (Windows)
+
+Se você está no Windows e só quer ver o projeto rodando:
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Bruno140US/qr-analytics.git
+   cd qr-analytics
+   ```
+
+2. Dê **duplo clique** em **`setup.bat`** — cria o venv, instala dependências e prepara o `.env`.
+
+3. Abra o `.env` em um editor de texto e troque `ADMIN_PASSWORD` por uma senha sua.
+
+4. Dê **duplo clique** em **`start.bat`** — o servidor sobe automaticamente.
+
+5. Acesse [http://localhost:8000/dashboard/](http://localhost:8000/dashboard/) no navegador.
+
+**Para expor online (opcional):** com o servidor rodando, dê duplo clique em **`tunnel.bat`** para gerar uma URL pública HTTPS via Cloudflare Tunnel.
+
+> Em Linux/macOS, siga o passo a passo manual em [Como rodar localmente](#️-como-rodar-localmente).
+
+
 ### Pré-requisitos
 
 - Python 3.12+
