@@ -5,3 +5,4 @@ user-agents
 requests
 slowapi
 python-dotenv
+a2wsgi

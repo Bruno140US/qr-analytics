@@ -399,3 +399,12 @@ if DASHBOARD_DIR.exists():
         StaticFiles(directory=DASHBOARD_DIR, html=True),
         name="dashboard",
     )
+
+
+# --- Bloco de compatibilidade com PythonAnywhere (ASGI) ---
+# Este trecho é executado apenas no ambiente do PythonAnywhere
+# para expor a aplicação FastAPI como 'application'
+import os
+if os.getenv('PYTHONANYWHERE_SITE'):
+    from a2wsgi import ASGIMiddleware
+    application = ASGIMiddleware(app)
